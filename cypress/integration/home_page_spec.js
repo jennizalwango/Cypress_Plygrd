@@ -5,5 +5,6 @@ describe ('Home Page', ()=>
     cy.get('input')
     cy.get('form > button').click()
     cy.get(':nth-child(2) > button').click()
+    cy.get('h1').contains('To do list')
   })
 })
