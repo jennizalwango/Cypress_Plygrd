@@ -1,16 +1,17 @@
-import React, {useState} from 'react';
-
-function Login(){
+import React, { useState } from 'react';
+ 
+function Login(props) {
   const username = useFormInput('');
-  const password =  useFormInput('');
-  const[error, setError]= useState(null)
-  
-
-  const handleLogin =() =>{
-    props.history.push('/dashborad');
+  const password = useFormInput('');
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+ 
+  // handle button click of login form
+  const handleLogin = () => {
+    props.history.push('/dashboard');
   }
-
-  reuturn(
+ 
+  return (
     <div>
       Login<br /><br />
       <div>
@@ -24,17 +25,19 @@ function Login(){
       {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
       <input type="button" value={loading ? 'Loading...' : 'Login'} onClick={handleLogin} disabled={loading} /><br />
     </div>
-)
+  );
 }
-const useFormInput = initialValue =>{
+ 
+const useFormInput = initialValue => {
   const [value, setValue] = useState(initialValue);
-  const handleChange = e =>{
+ 
+  const handleChange = e => {
     setValue(e.target.value);
   }
-  return{
+  return {
     value,
-    onchange: handleChange
+    onChange: handleChange
   }
-
 }
+ 
 export default Login;

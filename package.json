@@ -1,7 +1,8 @@
-
 {
-  "scripts": 
-  {
-    "cypress:open":"cypress open"
-  }
+    "scripts": {
+        "cypress:open": "cypress open"
+    },
+    "devDependencies": {
+        "cypress": "^9.1.0"
+    }
 }

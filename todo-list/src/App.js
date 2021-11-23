@@ -1,42 +1,30 @@
-import React, { useState } from 'react';
-//mock data
-import data from "./data.json";
+import React, { useState } from "react";
+import {BrowserRouter, Route, NavLink, Routes } from 'react-router-dom';
+import Home from "./Home";
 //components
-import Header from "./Header";
-import ToDoList from "./ToDoList";
-import ToDoForm from './ToDoForm';
-import Login from './LoginForm';
-import Dashboard from './Dashboard';
+import Login from "./LoginForm";
+import Dashboard from "./Dashboard";
 
 function App() {
-  
-  const [ toDoList, setToDoList ] = useState(data);
-
-  const handleToggle = (id) => {
-    let mapped = toDoList.map(task => {
-      return task.id === Number(id) ? { ...task, complete: !task.complete } : { ...task};
-    });
-    setToDoList(mapped);
-  }
-
-  const handleFilter = () => {
-    let filtered = toDoList.filter(task => {
-      return !task.complete;
-    });
-    setToDoList(filtered);
-  }
-
-  const addTask = (userInput ) => {
-    let copy = [...toDoList];
-    copy = [...copy, { id: toDoList.length + 1, task: userInput, complete: false }];
-    setToDoList(copy);
-  }
-
   return (
-    <div className="App">
-      <Header />
-      <ToDoList toDoList={toDoList} handleToggle={handleToggle} handleFilter={handleFilter}/>
-      <ToDoForm addTask={addTask}/>
+    <div className={App}>
+      <BrowserRouter>
+        <div>
+          <div className="header">
+            <NavLink exact activeClassName="active" to="/">Home</NavLink>
+            <NavLink activeClassName="active" to="/login">Login</NavLink>
+            <NavLink activeClassName="active" to="/Dashboard">Dashboard</NavLink>
+          </div>
+
+        </div>
+        <div className="content">
+          <Routes>
+          <Route exact path="/" element={<Home/>}/>
+          <Route exact path="/Login" element={<Login/>}/>
+          <Route exact path="/Dashboard" element={<Dashboard/>}/>
+          </Routes>
+        </div>
+      </BrowserRouter>
     </div>
   );
 }
