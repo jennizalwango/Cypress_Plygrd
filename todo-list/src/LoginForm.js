@@ -1,36 +1,64 @@
-import React, { useState } from 'react';
- 
-function Login(props) {
-  const username = useFormInput('');
-  const password = useFormInput('');
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
- 
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const Login = () => {
+  const username = useFormInput('')
+  const password = useFormInput('')
+  const [error] = useState(null);
+  const [loading] = useState(false);
+  const history = useNavigate();
+
   // handle button click of login form
   const handleLogin = () => {
-    props.history.push('/dashboard');
-  }
- 
+    history("/dashboard");
+  };
+
+
+  const handleFormSubmit = () => {
+    localStorage.setItem("username", username);
+    localStorage.setItem("password", password);
+  };
+
   return (
-    <div>
-      Login<br /><br />
+    <form onSubmit={handleFormSubmit}>
+      Login
+      <br />
+      <br />
       <div>
-        Username<br />
-        <input type="text" {...username} autoComplete="new-password" />
+        Username
+        <br />
+        <input
+          name="username"
+          {...username}
+        />
       </div>
       <div style={{ marginTop: 10 }}>
-        Password<br />
-        <input type="password" {...password} autoComplete="new-password" />
+        Password
+        <br />
+        <input
+          type="password"
+          {...password}
+        />
       </div>
-      {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
-      <input type="button" value={loading ? 'Loading...' : 'Login'} onClick={handleLogin} disabled={loading} /><br />
-    </div>
+      {error && (
+        <>
+          <small style={{ color: "red" }}>{error}</small>
+          <br />
+        </>
+      )}
+      <br />
+      <input
+        type="submit"
+        value={loading ? "Loading..." : "Login"}
+        onClick={handleLogin}
+        disabled={loading}
+      />
+    </form>
   );
-}
- 
+};
+
 const useFormInput = initialValue => {
   const [value, setValue] = useState(initialValue);
- 
   const handleChange = e => {
     setValue(e.target.value);
   }
@@ -39,5 +67,5 @@ const useFormInput = initialValue => {
     onChange: handleChange
   }
 }
- 
+
 export default Login;

@@ -1,8 +1,11 @@
 import React from 'react';
+import {useNavigate} from 'react-router-dom';
 
-function Dashboard (props){
+
+const Dashboard = ()=> {
+  const history= useNavigate()
   const hanldeLogout = () =>{
-    props.history.push('/login');
+    history('/login');
   }
   return(
     <div>
